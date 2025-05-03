@@ -164,13 +164,15 @@
 		}
 	}
 	function giveHint(guess, key){
-		var indexArr = [false, false, false, false, false];
+		var keyArr = [false, false, false, false, false];
+		var guessArr = [false, false, false, false, false];
 		var colorArr = ["", "", "", "", ""];
 		var count = 0;
 		for (var v = 0; v < 5; v++){
 			if (guess.charAt(v) == key.charAt(v)){
 				colorArr[v] = "blue";
-				indexArr[v] = true;
+				keyArr[v] = true;
+				guessArr[v] = true;
 				count++;
 			}
 			else{
@@ -178,10 +180,13 @@
 			}
 		}
 		for (var q = 0; q < 5; q++){
+			if (guessArr[q]){
+				continue;
+			}
 			var found = false;
 			for (var t = 0; t < 5; t++){
-				if (!indexArr[t] && guess.charAt(q) === key.charAt(t)) {
-        			indexArr[t] = true;
+				if (!keyArr[t] && guess.charAt(q) === key.charAt(t)) {
+        			keyArr[t] = true;
         			found = true;
         			break;
       			}
