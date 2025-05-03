@@ -120,7 +120,7 @@
 		var n = 0;
 		var d = 0;
 		var ready = false;
-		const dic = [];
+		var dic = [];
 		fetch("sictionary.txt")
   			.then(response => {
 				if (!response.ok) throw new Error ("File failed.");
