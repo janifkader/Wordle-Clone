@@ -162,9 +162,8 @@
 			}
 		}
 	  	if (guess != null) {
-	  		for (var i = 0; i < 5; i++){
-	  			count = giveHint(guess, key);
-	  		}
+	  		console.log("key =", key, "type:", typeof key);
+	  		count = giveHint(guess, key);
 		}
 		if (count == 5){
 			alert("YOU WON!");
