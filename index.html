@@ -163,13 +163,7 @@
 		}
 	  	if (guess != null) {
 	  		for (var i = 0; i < 5; i++){
-	  			index++;
-	  			var s = JSON.stringify(index);
-	  			var cell = document.getElementById(s);
-	  			var t = guess.charAt(i);
-	  			var text = document.createTextNode(t);
-	  			cell.appendChild(text);
-	  			count = giveHint(t, i, key, cell, count);
+	  			count = giveHint(guess, key);
 	  		}
 		}
 		if (count == 5){
@@ -179,6 +173,7 @@
 	}
 	function giveHint(guess, key){
 		var indexArr = [false, false, false, false, false];
+		var count = 0;
 		for (var i = 0; i < 5; i++){
 			index++;
 	  		var s = JSON.stringify(index);
@@ -187,6 +182,7 @@
 				if (guess.charAt(v) == key.charAt(v)){
 					cell.innerHTML = guess.charAt(v).fontcolor("blue");
 					indexArr[v] = true;
+					count++;
 				}
 				else{
 					cell.innerHTML = guess.charAt(v).fontcolor("white");
