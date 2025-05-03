@@ -129,7 +129,7 @@
   			.then(text => {
     		dic = text.split("-").filter(word => word.length === 5);
     		key = chooseKey();
-		ready = true;
+			ready = true;
     		console.log("Chosen word:", key);
   		})
 		.catch(error => {
@@ -145,16 +145,12 @@
 		var count = 0;
 		var b = false; 
 		while (true){
-			console.log("HEY");
 			var guess = prompt("What is your guess");
 			if (guess.length < 5 || guess.length > 5){
-				alert("gggThat is an invalid guess. Try Again!");
+				alert("That is an invalid guess. Try Again!");
 			}
 			else{
 				for (var r = 0; r < dic.length-1; r++){
-					console.log("SOCIETY");
-					alert(dic[r]);
-					console.log(dic[r]);
 					if (guess == dic[r]){
 						b = true;
 					}
@@ -162,7 +158,7 @@
 				if (b == true){
 					break;
 				}
-				alert("hhhThat is an invalid guess. Try Again!");
+				alert("That is an invalid guess. Try Again!");
 			}
 		}
 	  	if (guess != null) {
@@ -181,20 +177,35 @@
 			location.reload();
 		}
 	}
-	function giveHint(t, i, key, cell, count){
-		for (var v = 0; v < 5; v++){ 
-			if (t == key.charAt(v) && i == v){
-				cell.innerHTML = t.fontcolor("blue");
-				count++;
-				return count;
+	function giveHint(guess, key){
+		var indexArr = [false, false, false, false, false];
+		for (var i = 0; i < 5; i++){
+			index++;
+	  		var s = JSON.stringify(index);
+	  		var cell = document.getElementById(s);
+			for (var v = 0; v < 5; v++){
+				if (guess.charAt(v) == key.charAt(v)){
+					cell.innerHTML = guess.charAt(v).fontcolor("blue");
+					indexArr[v] = true;
+				}
+				else{
+					cell.innerHTML = guess.charAt(v).fontcolor("white");
+				}
 			}
-			else if (t == key.charAt(v) && i != v){
-				cell.innerHTML = t.fontcolor("yellow");
-				return count;
+			for (var q = 0; q < 5; q++){
+				for (var t = 0; t < 5; t++){
+					var found = false;
+					if (!indexArr[t] && guess.charAt(q) === key.charAt(t)) {
+        				indexArr[t] = true;
+        				found = true;
+        				break;
+      				}
+				}
+				if (found){
+					cell.innerHTML = guess.charAt(q).fontcolor("yellow");
+				}
+				cell.appendChild(document.createTextNode(guess.charAt(v)));
 			}
-			else{
-				cell.innerHTML = t.fontcolor("white");
-			};
 		}
 		return count;
 	}
