@@ -119,13 +119,22 @@
 		var temp = "";
 		var n = 0;
 		var d = 0;
+		var ready = false;
 		const dic = [];
 		fetch("sictionary.txt")
-  			.then(response => response.text())
+  			.then(response => {
+				if (!response.ok) throw new Error ("File failed.");
+				return response.text();
+			})
   			.then(text => {
     		dic = text.split("-").filter(word => word.length === 5);
     		key = chooseKey();
+		ready = true;
     		console.log("Chosen word:", key);
+  		})
+		.catch(error => {
+    			console.error("Error loading dictionary:", error);
+			alert("Failed to load dictionary. Check console.");
   		});
 	function chooseKey(){
 		var x = Math.round(Math.random() * dic.length);
