@@ -94,7 +94,7 @@
 		}
 		else if (guessCount != 6){
 			console.log(key);
-			guessCount++; console.log(guessCount); makeGuess(key)
+			console.log(guessCount); makeGuess(key)
 		}
 		">Start</button>
 		</div> 
@@ -139,6 +139,10 @@
 		var b = false; 
 		while (true){
 			var guess = prompt("What is your guess");
+			if (guess === NULL){
+				return;
+			}
+			guessCount++;
 			if (guess.length < 5 || guess.length > 5){
 				alert("That is an invalid guess. Try Again!");
 			}
