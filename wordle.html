@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Wordle</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+	<style>
+	.output {
+  		overflow: scroll;
+  		margin: 1rem 0;
+  		height: 200px;
+	}
+	.but{
+		margin: 0;
+  		position: absolute;
+  		left: 50%;
+  		-ms-transform: translateX(-50%);
+  		transform: translateX(-50%);
+	}
+	.back{
+		background-color: black;
+		color: white;
+		cursor: pointer;
+		font-size: 25px;
+		font-family: Silkscreen;
+		border-style: none;
+		margin: 5px;
+	}
+	.back:active{
+		background-color: white;
+		color: black;
+		cursor: pointer;
+		font-size: 25px;
+		font-family: Silkscreen;
+		border-style: solid;
+		border-color: black;
+	}
+	.grid-container {
+	  display: grid;
+	  grid-template-columns: auto auto auto auto auto;
+	  gap: 10px;
+	  background-color: #272a2e;
+	  padding: 10px;
+	  font-family: Staatliches;
+	}
+	.grid-container > div {
+  background-color: #02050a;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+</style>
+</head>
+	<body>
+		<h1 align = "center">Wordle</h1>
+		<div class = "grid-container" align = "center">
+		  <div id = "1"> </div>
+		  <div id = "2"> </div>
+		  <div id = "3"> </div>  
+		  <div id = "4"> </div>
+		  <div id = "5"> </div>
+		  <div id = "6"> </div>
+		  <div id = "7"> </div>
+		  <div id = "8"> </div>  
+		  <div id = "9"> </div>
+		  <div id = "10"> </div>
+		  <div id = "11"> </div>
+		  <div id = "12"> </div>
+		  <div id = "13"> </div>  
+		  <div id = "14"> </div>
+		  <div id = "15"> </div>
+		  <div id = "16"> </div>
+		  <div id = "17"> </div>
+		  <div id = "18"> </div>  
+		  <div id = "19"> </div>
+		  <div id = "20"> </div>
+		  <div id = "21"> </div>
+		  <div id = "22"> </div>
+		  <div id = "23"> </div>  
+		  <div id = "24"> </div>
+		  <div id = "25"> </div>
+		  <div id = "26"> </div>
+		  <div id = "27"> </div>
+		  <div id = "28"> </div>  
+		  <div id = "29"> </div>
+		  <div id = "30"> </div>
+		</div>
+		<div class = 'but'>
+		<button id = "man" onclick="if(guessCount == 0){
+			document.getElementById('man').innerHTML = 'Make A Guess';
+		}
+		if (guessCount==6){
+			alert('Sorry, the word was ' + key + '. You lost');
+			location.reload();
+		}
+		else if (guessCount != 6){
+			console.log(key);
+			guessCount++; console.log(guessCount); makeGuess(key)
+		}
+		">Start</button>
+		</div> 
+		<div>
+		<button class = "back" onclick="window.location.href='games.html';">Back</button>
+		</div>
+		<div id = "b">
+		<br>Welcome to Wordle!<br>Your job is to guess a random 5 letter word<br>You will have 6 chances<br> Each time you guess wrong, the computer will let you know by<br>1. Making the letter YELLOW if its the right letter but in the wrong place<br>2. Making the letter BLUE if it is the right letter in the right place<br>3. Making the letter WHITE if it is not in the word<br>Good Luck!<br>
+		</div>
+		<input type="file" />
+		<div class="output"></div>
+	</body>
+	<script>
+		var key = "";
+		var guessCount = 0;
+		var index = 0;
+		var temp = "";
+		var n = 0;
+		var d = 0;
+		const dic = [];
+		fetch("sictionary.txt")
+  			.then(response => response.text())
+  			.then(text => {
+    		wordList = text.split("-").filter(word => word.length === 5);
+    		key = chooseKey();
+    		console.log("Chosen word:", key);
+  		});
+	function chooseKey(){
+		var x = Math.round(Math.random() * dic.length);
+		console.log("key: ", dic[x]);
+		return dic[x];
+	}
+	function makeGuess(key){
+		var count = 0;
+		var b = false; 
+		while (true){
+			console.log("HEY");
+			var guess = prompt("What is your guess");
+			if (guess.length < 5 || guess.length > 5){
+				alert("gggThat is an invalid guess. Try Again!");
+			}
+			else{
+				for (var r = 0; r < dic.length-1; r++){
+					console.log("SOCIETY");
+					alert(dic[r]);
+					console.log(dic[r]);
+					if (guess == dic[r]){
+						b = true;
+					}
+				}
+				if (b == true){
+					break;
+				}
+				alert("hhhThat is an invalid guess. Try Again!");
+			}
+		}
+	  	if (guess != null) {
+	  		for (var i = 0; i < 5; i++){
+	  			index++;
+	  			var s = JSON.stringify(index);
+	  			var cell = document.getElementById(s);
+	  			var t = guess.charAt(i);
+	  			var text = document.createTextNode(t);
+	  			cell.appendChild(text);
+	  			count = giveHint(t, i, key, cell, count);
+	  		}
+		}
+		if (count == 5){
+			alert("YOU WON!");
+			location.reload();
+		}
+	}
+	function giveHint(t, i, key, cell, count){
+		for (var v = 0; v < 5; v++){ 
+			if (t == key.charAt(v) && i == v){
+				cell.innerHTML = t.fontcolor("blue");
+				count++;
+				return count;
+			}
+			else if (t == key.charAt(v) && i != v){
+				cell.innerHTML = t.fontcolor("yellow");
+				return count;
+			}
+			else{
+				cell.innerHTML = t.fontcolor("white");
+			};
+		}
+		return count;
+	}
+	</script>
+</html>
