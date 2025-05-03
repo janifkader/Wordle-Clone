@@ -172,22 +172,19 @@
 	}
 	function giveHint(guess, key){
 		var indexArr = [false, false, false, false, false];
+		var colorArr = ["", "", "", "", ""];
 		var count = 0;
 		for (var v = 0; v < 5; v++){
-			var s = JSON.stringify(index + v);
-	  		var cell = document.getElementById(s);
 			if (guess.charAt(v) == key.charAt(v)){
-				cell.innerHTML = guess.charAt(v).fontcolor("blue");
+				colorArr[v] = "blue";
 				indexArr[v] = true;
 				count++;
 			}
 			else{
-				cell.innerHTML = guess.charAt(v).fontcolor("white");
+				colorArr[v] = "white"
 			}
 		}
 		for (var q = 0; q < 5; q++){
-			var s = JSON.stringify(index + q);
-	  		var cell = document.getElementById(s);
 			for (var t = 0; t < 5; t++){
 				var found = false;
 				if (!indexArr[t] && guess.charAt(q) === key.charAt(t)) {
@@ -197,7 +194,7 @@
       			}
 			}
 			if (found){
-				cell.innerHTML = guess.charAt(q).fontcolor("yellow");
+				colorArr[q] = "yellow"
 			}
 				
 		}
@@ -205,6 +202,7 @@
 			index++;
 			var s = JSON.stringify(index);
 	  		var cell = document.getElementById(s);
+	  		cell.innerHTML = guess.charAt(i).fontcolor(colorArr[i]);
 			cell.appendChild(document.createTextNode(guess.charAt(i)));
 		}
 		return count;
