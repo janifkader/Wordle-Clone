@@ -185,8 +185,8 @@
 			}
 		}
 		for (var q = 0; q < 5; q++){
+			var found = false;
 			for (var t = 0; t < 5; t++){
-				var found = false;
 				if (!indexArr[t] && guess.charAt(q) === key.charAt(t)) {
         			indexArr[t] = true;
         			found = true;
@@ -199,7 +199,7 @@
 				
 		}
 		for (var i = 0; i < 5; i ++){
-			index++;
+			var index = guessCount * 5 + i + 1;
 			var s = JSON.stringify(index);
 	  		var cell = document.getElementById(s);
 	  		cell.innerHTML = guess.charAt(i).fontcolor(colorArr[i]);
