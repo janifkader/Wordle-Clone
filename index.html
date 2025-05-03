@@ -123,7 +123,7 @@
 		fetch("sictionary.txt")
   			.then(response => response.text())
   			.then(text => {
-    		wordList = text.split("-").filter(word => word.length === 5);
+    		dic = text.split("-").filter(word => word.length === 5);
     		key = chooseKey();
     		console.log("Chosen word:", key);
   		});
