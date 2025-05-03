@@ -121,7 +121,7 @@
 		var d = 0;
 		var ready = false;
 		var dic = [];
-		fetch("sictionary.txt")
+		fetch("dict.txt")
   			.then(response => {
 				if (!response.ok) throw new Error ("File failed.");
 				return response.text();
